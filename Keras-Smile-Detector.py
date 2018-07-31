@@ -53,14 +53,6 @@ from matplotlib.pyplot import imshow
 
 get_ipython().magic('matplotlib inline')
 
-# As a deep learning expert, to make sure the "Happy" rule is strictly applied, you are going to build an algorithm which that uses pictures from the front door camera to check if the person is happy or not. The door should open only if the person is happy. 
-# 
-# You have gathered pictures of your friends and yourself, taken by the front-door camera. The dataset is labbeled. 
-# 
-
-# The following code to normalize the dataset and learn about its shapes.
-
-
 X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset()
 
 # Normalize image vectors
@@ -159,5 +151,12 @@ print(happyModel.predict(X_train[3].reshape(1,64,64,3)))
 
 
 
+# serialize model to JSON
+model_json = happyModel.to_json()
+with open("model/model.json", "w") as json_file:
+    json_file.write(model_json)
+# serialize weights to HDF5
+happyModel.save_weights("model/model.h5")
+print("Saved model to disk")
 
 
